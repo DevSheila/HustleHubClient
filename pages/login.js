@@ -1,4 +1,4 @@
-export default function Signup() {
+export default function Login() {
     return (
         <section class="relative py-20 lg:py-10 overflow-hidden">
   <div class="container px-4 mx-auto">
