@@ -1,7 +1,7 @@
 import Head from 'next/head'
-import Layout from '../layout/layout'
+// import Layout from '../layout/layout'
 import Link from 'next/link'
-import styles from '../styles/Form.module.css';
+// import styles from '../styles/Form.module.css';
 import Image from 'next/image'
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
@@ -82,7 +82,7 @@ export default function Login() {
                     <div class="w-full md:w-1/2 px-2 mb-3 md:mb-0">
                       <a onClick={handleGoogleSignin} class="inline-flex w-full py-3 px-4 items-center justify-center rounded-full border border-gray-200 hover:border-gray-400 transition duration-100" href="#">
                         <img src="saturn-assets/images/sign-up/icon-facebook.svg" alt=""/>
-                        <span class="ml-4 text-sm font-semibold text-gray-500">Login with Facebook</span>
+                        <span class="ml-4 text-sm font-semibold text-gray-500">Login with Google</span>
                       </a>
                     </div>
                     <div class="w-full md:w-1/2 px-2">

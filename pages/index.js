@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Link from 'next/link'
+// import a from 'next/a'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
 
@@ -31,7 +31,7 @@ function Guest(){
           <h3 className='text-4xl font-bold'>Guest Homepage</h3>
 
           <div className='flex justify-center'>
-            <Link href={'/login'}><a className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Sign In</a></Link>
+            <a href={'/login'} className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Sign In</a>
           </div>
       </main>
   )
@@ -53,7 +53,7 @@ function User({ session, handleSignOut }){
           </div>
 
           <div className='flex justify-center'>
-            <Link href={'/profile'}><a className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile Page</a></Link>
+            <a href={'/profile'} className='mt-5 px-10 py-1 rounded-sm bg-indigo-500 text-gray-50'>Profile Pag</a>
           </div>
       </main>
   )
