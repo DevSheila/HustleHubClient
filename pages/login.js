@@ -9,9 +9,9 @@ export default function Login() {
             <img class="block w-full h-166 lg:h-full object-cover rounded-3xl" src="../images/img3.jpg" alt=""/>
             <div class="absolute bottom-0 w-full left-0 p-4 sm:p-6">
               <div class="p-6 sm:p-10 backdrop-blur-md backdrop-filter bg-black bg-opacity-30 rounded-5xl">
-                <h5 class="text-3xl text-white font-semibold mb-2">Selina Destin</h5>
-                <span class="block text-sm text-white font-semibold mb-6">Web Development Agency</span>
-                <p class="max-w-xl text-2xl text-white font-semibold mb-15">&quot;Untitled has become essential in starting every new project, we can&apos;t imagine working without it.&quot;</p>
+                <h5 class="text-3xl text-white font-semibold mb-2">Hustle_hub</h5>
+                <span class="block text-sm text-white font-semibold mb-6"></span>
+                <p class="max-w-xl text-2xl text-white font-semibold mb-15">&quot;Bringing skilled artisan to your doorstep&quot;</p>
                 <div>
                   <button class="inline-block mr-2 h-1 w-5 rounded-full bg-white hover:bg-blue-100"></button>
                   <button class="inline-block mr-2 h-1 w-5 rounded-full bg-white hover:bg-blue-100"></button>
