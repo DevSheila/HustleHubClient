@@ -1,4 +1,57 @@
+import Head from 'next/head'
+// import Layout from '../layout/layout'
+import Link from 'next/link'
+// import styles from '../styles/Form.module.css';
+import Image from 'next/image'
+import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
+import { useState } from 'react';
+import { signIn, signOut } from "next-auth/react"
+import { useFormik } from 'formik';
+import login_validate from '../lib/validate';
+import { useRouter } from 'next/router';
+
+
 export default function Login() {
+
+    const [show, setShow] = useState(false)
+    const router = useRouter()
+    // formik hook
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: ''
+        },
+        validate : login_validate,
+        onSubmit
+    })
+
+    /**
+     * haleykennedy@gmail.com
+     * admin123
+     */
+
+    async function onSubmit(values){
+        const status = await signIn('credentials', {
+            redirect: false,
+            email: values.email,
+            password: values.password,
+            callbackUrl: "/"
+        })
+
+        if(status.ok) router.push(status.url)
+        
+    }
+
+    // Google Handler function
+    async function handleGoogleSignin(){
+        signIn('google', { callbackUrl : "http://localhost:3000"})
+    }
+
+    // Github Login 
+    async function handleGithubSignin(){
+        signIn('github', { callbackUrl : "http://localhost:3000"})
+    }
+
     return (
         <section class="relative py-20 lg:py-10 overflow-hidden">
   <div class="container px-4 mx-auto">
@@ -9,9 +62,9 @@ export default function Login() {
             <img class="block w-full h-166 lg:h-full object-cover rounded-3xl" src="../images/img3.jpg" alt=""/>
             <div class="absolute bottom-0 w-full left-0 p-4 sm:p-6">
               <div class="p-6 sm:p-10 backdrop-blur-md backdrop-filter bg-black bg-opacity-30 rounded-5xl">
-                <h5 class="text-3xl text-white font-semibold mb-2">Hustle_hub</h5>
-                <span class="block text-sm text-white font-semibold mb-6"></span>
-                <p class="max-w-xl text-2xl text-white font-semibold mb-15">&quot;Bringing skilled artisan to your doorstep&quot;</p>
+                <h5 class="text-3xl text-white font-semibold mb-2">Selina Destin</h5>
+                <span class="block text-sm text-white font-semibold mb-6">Web Development Agency</span>
+                <p class="max-w-xl text-2xl text-white font-semibold mb-15">&quot;Untitled has become essential in starting every new project, we can&apos;t imagine working without it.&quot;</p>
                 <div>
                   <button class="inline-block mr-2 h-1 w-5 rounded-full bg-white hover:bg-blue-100"></button>
                   <button class="inline-block mr-2 h-1 w-5 rounded-full bg-white hover:bg-blue-100"></button>
