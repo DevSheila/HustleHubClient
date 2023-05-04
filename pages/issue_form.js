@@ -16,12 +16,12 @@ export default function IssueForm() {
             <div className="xl:w-9/12 w-11/12 mx-auto xl:mx-0">
 
               <div className="mt-16 flex flex-col xl:w-2/6 lg:w-1/2 md:w-1/2 w-full">
-                <label for="username" className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Username</label>
-                <input tabindex="0" type="text" id="username" name="username" required className="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 bg-transparent placeholder-gray-500 text-gray-600 dark:text-gray-400" placeholder="@example" />
+                <label for="username" className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Issue</label>
+                <input tabindex="0" type="text" id="username" name="username" required className="border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 bg-transparent placeholder-gray-500 text-gray-600 dark:text-gray-400" placeholder="Broken kitchen pipe" />
               </div>
               <div className="mt-8 flex flex-col xl:w-3/5 lg:w-1/2 md:w-1/2 w-full">
-                <label for="about" className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">About</label>
-                <textarea id="about" name="about" required className="bg-transparent border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 resize-none placeholder-gray-500 text-gray-600 dark:text-gray-400" placeholder="Let the world know who you are" rows="5"></textarea>
+                <label for="about" className="pb-2 text-sm font-bold text-gray-800 dark:text-gray-100">Details</label>
+                <textarea id="about" name="about" required className="bg-transparent border border-gray-300 dark:border-gray-700 pl-3 py-3 shadow-sm rounded text-sm focus:outline-none focus:border-indigo-700 resize-none placeholder-gray-500 text-gray-600 dark:text-gray-400" placeholder="Give more details" rows="5"></textarea>
                 <p className="w-full text-right text-xs pt-1 text-gray-600 dark:text-gray-400">Character Limit: 200</p>
               </div>
             </div>
