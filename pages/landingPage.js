@@ -16,10 +16,10 @@ import Contact from './contact'
   }
   //Navigation
   const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Home', href: '#', current: true },
+    { name: 'For clients', href: '/issue_form', current: false },
+    { name: 'For artisans', href: '#', current: false },
+    { name: 'About us', href: '#', current: false },
   ]
   //className
   function classNames(...classes) {
@@ -30,7 +30,7 @@ function LandingPage() {
     return (
         <>
             <div class="bg-white">
-            <Disclosure as="nav" className="bg-gray-800">
+            <Disclosure as="nav" className="bg-blue-800">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
