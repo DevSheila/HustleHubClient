@@ -29,7 +29,6 @@ function setupProfile() {
     }
   }
 
-
   function nextPrev(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("step");
