@@ -20,7 +20,6 @@ const [image, setImage] = useState('');
 
     console.log("yeyeyy")
     console.log(values)
-
     try{
         // Send signup request to the API
         const response = await fetch('/api/artisan/profile', {
