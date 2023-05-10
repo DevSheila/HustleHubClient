@@ -9,6 +9,7 @@ const List = ({ places, isLoading }) => {
     const [showList, setShowList] = useState(false)
     const [showProfessions, setShowProfessions] = useState(true)
     const [handymen, setHandmen] = useState([])
+    const [booking,setBooking]=useState([])
 
 
      const [value, setValue] = useState({
@@ -16,17 +17,22 @@ const List = ({ places, isLoading }) => {
         // endDate: new Date().setMonth(11)
     });
 
-      const handleValueChange = (newValue) => {
+    const handleValueChange = (newValue) => {
         console.log("newValue:", newValue);
         setValue(newValue);
     }
 
     const handleProfession =()=>{
       console.log("selected profession")
+      setBooking()
       setShowList(true)
       setShowProfessions(false)
 
     } 
+
+    const handleBooking=()=>{
+
+    }
 
 
   useEffect(() => {
@@ -133,7 +139,7 @@ const List = ({ places, isLoading }) => {
               } */}
 
                {handymen?.map((man,i) => (
-                  <PlaceDetail place={man} key={i} />
+                  <PlaceDetail place={man} key={i} onClick={handleBooking}/>
                   ))}
               </Flex>
            
