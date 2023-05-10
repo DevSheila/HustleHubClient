@@ -1,8 +1,14 @@
 import { Box, Flex, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
 import React from "react";
 import PlaceDetail from "./PlaceDetail";
+import Profession from "./professions";
+
 
 const List = ({ places, isLoading }) => {
+    const [showList, setShowList] = useState(false)
+    let [showProfessions, setShowProfessions] = useState(true)
+
+
   // if (isLoading)
   //   return (
   //     <Flex
@@ -53,13 +59,33 @@ const List = ({ places, isLoading }) => {
       overflow="hidden"
       px={2}
     >
-      {/* <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
-       {Array.isArray(places)?places.map((place, i) => <PlaceDetail place={place} key={i} />): 
+
+       {showProfessions? (
+              <div>
+                <PlaceDetail place={place} key={i} /> 
+              </div>
+
+
+       )): 
        <div>
         <h1>No places found</h1>
        </div>
        }
-      </Flex> */}
+
+
+      <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
+        
+
+       {Array.isArray(places)?places.map((place, i) => {
+              <PlaceDetail place={place} key={i} /> 
+
+
+      }): 
+       <div>
+        <h1>No places found</h1>
+       </div>
+       }
+      </Flex>
     </Flex>
   );
 };

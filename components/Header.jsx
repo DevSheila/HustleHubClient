@@ -22,6 +22,9 @@ import {
   BiStar,
 } from "react-icons/bi";
 import List from "./List";
+import Profession from "./professions";
+import Table from "./table";
+
 
   
 
@@ -32,6 +35,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
   const [autocomplete, setAutocomplete] = useState(null);
   const [location, setLocation] = useState('');
   const [filteredPlaces, setFilteredPlaces] = useState([]);
+  
 
 
   const onLoad = (autoC) => setAutocomplete(autoC);
@@ -257,11 +261,16 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
       </Flex>
     </Flex>
 
+
+
       <List
         places={filteredPlaces.length ? filteredPlaces : places}
         // places={restaurants}
         isLoading={isLoading}
       />
+
+      
+
 
     </div>
   );
