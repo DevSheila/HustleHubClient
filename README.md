@@ -50,6 +50,14 @@ Link to schema :https://dbdiagram.io/d/642313385758ac5f1724d7a8
 
 ![Alt text](https://github.com/DevSheila/blue-collar-web-app/blob/main/public/screenshots/Schema1.png "Schema Diagram")
 
+## 👨🏼‍💻 Contributors
+It was really fun to work with these awesome geeks to get the job done:
+
+* [Sheila Sharon](https://github.com/DevSheila)
+* [Ken Komu](https://github.com/kenkomu)
+* [Dennis Kemboi](https://github.com/denniskemboi9 )
+* [Festus Elias ](https://github.com/Kogalloh043)
+
 
 ## Contributions Welcome
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](#)
