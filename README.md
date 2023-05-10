@@ -21,8 +21,8 @@ Our project is a blue-collar web app designed to connect skilled handymen with p
 
 ## SETUP
 1. Clone the repo 
-2. 
-3. Install dependencies
+
+2. Install dependencies
 ```npm install```
 
 3. Running on the development server:
