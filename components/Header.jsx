@@ -10,6 +10,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 // import { Rating } from "@material-ui/lab";
+import { Rating } from "@material-tailwind/react";
+
 import { Autocomplete } from "@react-google-maps/api";
 import React, { useState,useEffect } from "react";
 import axios from "axios";
@@ -22,9 +24,6 @@ import {
   BiStar,
 } from "react-icons/bi";
 import List from "./List";
-import Profession from "./professions";
-import Table from "./table";
-
 
   
 
@@ -35,7 +34,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
   const [autocomplete, setAutocomplete] = useState(null);
   const [location, setLocation] = useState('');
   const [filteredPlaces, setFilteredPlaces] = useState([]);
-  
 
 
   const onLoad = (autoC) => setAutocomplete(autoC);
@@ -44,25 +42,25 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
     console.log("location"+autocomplete.getPlace().formatted_address)
-    fetchHadyman(autocomplete.getPlace().formatted_address);
+    fetchRestaurants(autocomplete.getPlace().formatted_address);
     
     setCoordinates({ lat, lng });
   };
 
 
-  const fetchHadyman = async (location) => {
+  const fetchRestaurants = async (location) => {
     try {
       const response = await axios.get('/api/handyman', {
         params: {
           location: location, // Replace with your desired location or make it dynamic
-        category: category,
         },
       });
-      let handyman=response
-      console.log(handyman)
 
-      setPlaces(handyman)
-      setRestaurants(handyman);
+      let restaurants=response.data.data
+      console.log(restaurants)
+
+      setPlaces(restaurants)
+      setRestaurants(restaurants);
       setIsLoading(false);
     } catch (error) {
       console.error('Error:', error.message);
@@ -80,7 +78,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
       py={2}
       zIndex={101}
     >
-
       <Flex>
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
           <InputGroup width={"35vw"} shadow="lg">
@@ -147,7 +144,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
                     2.0
                   </Text>
 
-                  {/* <Rating size="small" value={2} readOnly /> */}
+                  <Rating size="small" value={2} readOnly />
                 </MenuItem>
 
                 <MenuItem
@@ -160,7 +157,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
                     3.0
                   </Text>
 
-                  {/* <Rating size="small" value={3} readOnly /> */}
+                  <Rating size="small" value={3} readOnly />
                 </MenuItem>
 
                 <MenuItem
@@ -173,7 +170,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
                     4.0
                   </Text>
 
-                  {/* <Rating size="small" value={4} readOnly /> */}
+                  <Rating size="small" value={4} readOnly />
                 </MenuItem>
                 <MenuItem
                   display={"flex"}
@@ -185,7 +182,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
                     4.5
                   </Text>
 
-                  {/* <Rating size="small" value={5} readOnly /> */}
+                  <Rating size="small" value={5} readOnly />
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -261,16 +258,11 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
       </Flex>
     </Flex>
 
-
-
       <List
         places={filteredPlaces.length ? filteredPlaces : places}
         // places={restaurants}
         isLoading={isLoading}
       />
-
-      
-
 
     </div>
   );

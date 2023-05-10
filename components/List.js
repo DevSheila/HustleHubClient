@@ -1,13 +1,19 @@
 import { Box, Flex, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import PlaceDetail from "./PlaceDetail";
-import Profession from "./professions";
+import { Button } from "@material-tailwind/react";
 
 
 const List = ({ places, isLoading }) => {
     const [showList, setShowList] = useState(false)
     let [showProfessions, setShowProfessions] = useState(true)
 
+    const handleProfession =()=>{
+      console.log("selected profession")
+      setShowList(true)
+      setShowProfessions(false)
+
+    } 
 
   // if (isLoading)
   //   return (
@@ -59,33 +65,44 @@ const List = ({ places, isLoading }) => {
       overflow="hidden"
       px={2}
     >
+             {showProfessions?(
+          <div>
+          <p className="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Choose one</p>
+          <div className="inline-block grid grid-cols-2 gap-x-4 gap-y-5">
+            <Button type="submit" onClick={handleProfession} variant="outlined">Plumber</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Electrician</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Cook</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Cleaner</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Server</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Guard</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Bartender</Button>
+            <Button type="submit" onClick={handleProfession} variant="outlined">Mechanic</Button>
+            </div>
+            </div>
+           
+        ):
+         (
+           <div>
+            
+          </div>
+         )}
 
-       {showProfessions? (
+        {showList?(
+              <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
+              {Array.isArray(places)?places.map((place, i) => <PlaceDetail place={place} key={i} />): 
               <div>
-                <PlaceDetail place={place} key={i} /> 
+                <h1>No places found</h1>
               </div>
-
-
-       )): 
-       <div>
-        <h1>No places found</h1>
-       </div>
-       }
-
-
-      <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
-        
-
-       {Array.isArray(places)?places.map((place, i) => {
-              <PlaceDetail place={place} key={i} /> 
-
-
-      }): 
-       <div>
-        <h1>No places found</h1>
-       </div>
-       }
-      </Flex>
+              }
+              </Flex>
+           
+        ):
+         (
+           <div>
+            
+          </div>
+         )}
+ 
     </Flex>
   );
 };
