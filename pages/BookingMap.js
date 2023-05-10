@@ -71,6 +71,7 @@ const BookingMap = () => {
   // }, [type, coordinates, bounds])
 
   return (
+    
     <>
     <Flex
       justifyContent={"center"}
