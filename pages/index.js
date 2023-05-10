@@ -4,6 +4,7 @@ import styles from '../styles/Home.module.css'
 // import a from 'next/a'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
+import LandingPage from './landingPage'
 
 export default function Home() {
 
@@ -18,8 +19,9 @@ export default function Home() {
       <Head>
         <title>Home Page</title>
       </Head>
-
+      <LandingPage/>
       {session ? User({ session, handleSignOut }) : Guest()}
+      
     </div>
   )
 }
