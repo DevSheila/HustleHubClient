@@ -21,10 +21,8 @@ Our project is a blue-collar web app designed to connect skilled handymen with p
 
 ## SETUP
 1. Clone the repo 
-```shell
-git clone https://github.com/DevSheila/blue-collar-web-app.git
-```
-2. Install dependencies
+2. 
+3. Install dependencies
 ```npm install```
 
 3. Running on the development server:
