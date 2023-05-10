@@ -101,7 +101,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
           </InputGroup>
         </Autocomplete>
 
-        <Flex alignItems={"center"} justifyContent={"center"}>
+       {/* <Flex alignItems={"center"} justifyContent={"center"}>
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -189,7 +189,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
             <BiChevronDown fontSize={25} />
           </Flex>
 
-          {/* Restaurants */}
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -211,7 +210,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
             </Text>
           </Flex>
 
-          {/* Hotels */}
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -233,7 +231,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
             </Text>
           </Flex>
 
-          {/* Attractions */}
           <Flex
             alignItems={"center"}
             justifyContent={"center"}
@@ -254,7 +251,9 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
               Attractions
             </Text>
           </Flex>
-        </Flex>
+        </Flex> */}
+
+
       </Flex>
     </Flex>
 
