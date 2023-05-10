@@ -15,6 +15,8 @@ export default function Login() {
 
     const [show, setShow] = useState(false)
     const router = useRouter()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     // formik hook
     const formik = useFormik({
         initialValues: {
@@ -22,25 +24,26 @@ export default function Login() {
             password: ''
         },
         validate : login_validate,
-        onSubmit
+        // onSubmit
     })
 
-    /**
-     * haleykennedy@gmail.com
-     * admin123
-     */
+    
+    const handleSubmit = async (event) => {
+      event.preventDefault();
 
-    async function onSubmit(values){
-        const status = await signIn('credentials', {
-            redirect: false,
-            email: values.email,
-            password: values.password,
-            callbackUrl: "/"
-        })
+      // Send login request to the API
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-        if(status.ok) router.push(status.url)
-        
-    }
+      const data = await response.json();
+      console.log(data);
+    };
+
 
     // Google Handler function
     async function handleGoogleSignin(){
@@ -97,10 +100,18 @@ export default function Login() {
                     <span class="mx-4 text-sm font-semibold text-gray-500">Or</span>
                     <div class="w-full h-px bg-gray-300"></div>
                   </div>
-                  <form onSubmit={formik.handleSubmit} >
+                  <form onSubmit={handleSubmit} >
                     <div class="mb-6" className={`${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                       <label class="block mb-1.5 text-sm text-gray-900 font-semibold" for="" >Email</label>
-                      <input    name='email'  {...formik.getFieldProps('email')} class="w-full py-3 px-4 text-sm text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-purple-500 focus:outline-purple rounded-lg" type="email" placeholder="pat@saturn.dev"/>
+                      <input
+                          type="email"
+                          name='email'
+                          placeholder='Email'
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          class="w-full py-3 px-4 text-sm text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-purple-500 focus:outline-purple rounded-lg"
+
+                          />
                     </div>
                     <div class="mb-7">
                       <div class="flex mb-1.5 items-center justify-between">
@@ -108,7 +119,14 @@ export default function Login() {
                         <a class="inline-block text-xs font-semibold text-orange-900 hover:text-gray-900" href="#">Forget password?</a>
                       </div>
                       <div class="relative">
-                        <input  type={`${show ? "text" : "password"}`} name='password' {...formik.getFieldProps('password')}class="w-full py-3 px-4 text-sm text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-purple-500 focus:outline-purple rounded-lg"  placeholder="Enter your password"/>
+                        <input 
+                          type={`${show.password ? "text" : "password"}`}
+                          name='password'
+                          placeholder='password'
+                          value={password}
+                          onChange={(e) => setPassword(e.target.value)}
+                          class="w-full py-3 px-4 text-sm text-gray-900 placeholder-gray-400 border border-gray-200 focus:border-purple-500 focus:outline-purple rounded-lg"  
+                          />
                         <button class="absolute top-1/2 right-0 mr-3 transform -translate-y-1/2 inline-block hover:scale-110 transition duration-100">
                           <img src="saturn-assets/images/sign-up/icon-eye.svg" alt=""/>
                         </button>
@@ -118,7 +136,9 @@ export default function Login() {
                       <input type="checkbox" value="" id=""/>
                       <label class="ml-2 text-xs text-gray-800" for="">Remember for 30 days</label>
                     </div>
-                    <button class="relative group block w-full mb-6 py-3 px-5 text-center text-sm font-semibold text-orange-50 bg-orange-900 rounded-full overflow-hidden" type="submit">
+                    <button 
+                    onClick={handleSubmit}
+                    class="relative group block w-full mb-6 py-3 px-5 text-center text-sm font-semibold text-orange-50 bg-orange-900 rounded-full overflow-hidden" type="submit">
                       <div class="absolute top-0 right-full w-full h-full bg-gray-900 transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
                       <span class="relative">Login</span>
                     </button>

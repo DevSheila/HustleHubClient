@@ -14,31 +14,43 @@ export default function Signup() {
   
 
     const [show, setShow] = useState({ password: false, cpassword: false })
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [cpassword, setcpassword] = useState('');
+
     const router = useRouter()
     const formik = useFormik({
         initialValues: {
-            username : '',
-            email: '',
-            password: '',
-            cpassword: ''
+            username : username,
+            email: email,
+            password: password,
+            cpassword: cpassword
         },
         validate: registerValidate,
-        onSubmit
+        // handleSubmit
     })
 
-    async function onSubmit(values){
-        const options = {
-            method: "POST",
-            headers : { 'Content-Type': 'application/json'},
-            body: JSON.stringify(values)
-        }
 
-        await fetch('http://localhost:3000/api/auth/signup', options)
-            .then(res => res.json())
-            .then((data) => {
-                if(data) router.push('http://localhost:3000')
-            })
+    async function handleSubmit(e){
+        e.preventDefault();
+        let values={ username, email,cpassword, password }
+ 
+        // Send signup request to the API
+        const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, email, password }),
+        });
+
+        const data = await response.json();
+        console.log(data);
     }
+
+
+
     return (
 
       <section className="bg-white">
@@ -113,7 +125,7 @@ export default function Signup() {
                 </p>
               </div>
 
-              <form action="#" className="mt-8 grid grid-cols-6 gap-6" onSubmit={formik.handleSubmit}>
+              <form  className="mt-8 grid grid-cols-6 gap-6" onSubmit={handleSubmit}>
                 <div className={`col-span-6 sm:col-span-3 ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
                   <label
                     htmlFor="FirstName"
@@ -124,9 +136,10 @@ export default function Signup() {
 
                   <input
                     type="text"
-                   name='Username'
+                    name='Username'
                     placeholder='Username'
-                    {...formik.getFieldProps('username')}
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   />
                 </div>
@@ -170,7 +183,8 @@ export default function Signup() {
                     type="email"
                     name='email'
                     placeholder='Email'
-                    {...formik.getFieldProps('email')}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   />
                 </div>
@@ -186,7 +200,8 @@ export default function Signup() {
                     type={`${show.password ? "text" : "password"}`}
                     name='password'
                     placeholder='password'
-                    {...formik.getFieldProps('password')}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   />
                 </div>
@@ -201,10 +216,11 @@ export default function Signup() {
                   </label>
 
                   <input
-                   type={`${show.cpassword ? "text" : "password"}`}
+                    type={`${show.cpassword ? "text" : "password"}`}
                     name='cpassword'
                     placeholder='Confirm Password'
-                    {...formik.getFieldProps('cpassword')}
+                    value={cpassword}
+                    onChange={(e) => setcpassword(e.target.value)}
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   />
                 </div>
@@ -240,6 +256,7 @@ export default function Signup() {
                   <button
                     type='submit'
                     className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                    onClick={handleSubmit}
                   >
                     Create an account
                   </button>
