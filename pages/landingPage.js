@@ -18,7 +18,7 @@ import Contact from './contact'
   const navigation = [
     { name: 'Home', href: '#', current: true },
     { name: 'For clients', href: '/BookingForm', current: false },
-    { name: 'For artisans', href: '#', current: false },
+    { name: 'For artisans', href: '/profile_set', current: false },
     { name: 'About us', href: '#', current: false },
   ]
   //className
