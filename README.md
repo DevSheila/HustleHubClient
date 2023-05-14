@@ -49,6 +49,10 @@ Appoint Handyman: Users will be presented with a list of verified handymen who m
 Link to schema :https://dbdiagram.io/d/642313385758ac5f1724d7a8
 
 ![Alt text](https://github.com/DevSheila/blue-collar-web-app/blob/main/public/screenshots/Schema1.png "Schema Diagram")
+## Mockups
+
+Link to schema :
+1. Client mockup https://www.figma.com/file/8TG8I0wWHc5zBlFjkXD3BN/MVP-HANDYMAN?type=design&t=rd1ZlCSYsY1Wibkm-0
 
 ## 👨🏼‍💻 Contributors
 It was really fun to work with these awesome geeks to get the job done:
