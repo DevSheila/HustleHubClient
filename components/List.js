@@ -1,19 +1,52 @@
 import { Box, Flex, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PlaceDetail from "./PlaceDetail";
 import { Button } from "@material-tailwind/react";
+import Datepicker from "react-tailwindcss-datepicker";
 
 
 const List = ({ places, isLoading }) => {
     const [showList, setShowList] = useState(false)
-    let [showProfessions, setShowProfessions] = useState(true)
+    const [showProfessions, setShowProfessions] = useState(true)
+    const [handymen, setHandmen] = useState([])
+    const [booking,setBooking]=useState([])
+
+
+     const [value, setValue] = useState({
+        // startDate: new Date(),
+        // endDate: new Date().setMonth(11)
+    });
+
+    const handleValueChange = (newValue) => {
+        console.log("newValue:", newValue);
+        setValue(newValue);
+    }
 
     const handleProfession =()=>{
       console.log("selected profession")
+      setBooking()
       setShowList(true)
       setShowProfessions(false)
 
     } 
+
+    const handleBooking=()=>{
+
+    }
+
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch('/api/handymen');
+      console.log(response)
+      console.log(response.data)
+      const jsonData = await response.json();
+      console.log(jsonData)
+      setHandmen(jsonData.data);
+    }
+
+    fetchData();
+  }, []);
 
   // if (isLoading)
   //   return (
@@ -78,6 +111,16 @@ const List = ({ places, isLoading }) => {
             <Button type="submit" onClick={handleProfession} variant="outlined">Bartender</Button>
             <Button type="submit" onClick={handleProfession} variant="outlined">Mechanic</Button>
             </div>
+     
+              <Datepicker 
+              primaryColor={"blue"} 
+            useRange={false} 
+            asSingle={true} 
+            value={value} 
+            onChange={handleValueChange} 
+            /> 
+
+    
             </div>
            
         ):
@@ -89,11 +132,15 @@ const List = ({ places, isLoading }) => {
 
         {showList?(
               <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
-              {Array.isArray(places)?places.map((place, i) => <PlaceDetail place={place} key={i} />): 
+              {/* {Array.isArray(places)?places.map((place, i) => <PlaceDetail place={place} key={i} />): 
               <div>
                 <h1>No places found</h1>
               </div>
-              }
+              } */}
+
+               {handymen?.map((man,i) => (
+                  <PlaceDetail place={man} key={i} onClick={handleBooking}/>
+                  ))}
               </Flex>
            
         ):
@@ -106,5 +153,16 @@ const List = ({ places, isLoading }) => {
     </Flex>
   );
 };
+export async function getStaticProps() {
+  const response = await fetch('api/handymen');
+  const handymen = await response.data;
+
+  console.log(handymen)
+  return {
+    props: {
+      handymen,
+    },
+  };
+}
 
 export default List;

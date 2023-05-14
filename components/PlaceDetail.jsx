@@ -40,7 +40,7 @@ const PlaceDetail = ({ place }) => {
             </Text>
 
             <Text fontSize={"sm"} fontWeight={"500"} color={"gray.500"}>
-              {place.price}
+              {place.phone}
             </Text>
           </Flex>
 
@@ -51,25 +51,25 @@ const PlaceDetail = ({ place }) => {
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
-            >{`(${place.review_count})`}</Text>
+            >{`(${place.email})`}</Text>
             <Text
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
               ml={"auto"}
             >
-              {place.price}
+              {place.email}
             </Text>
           </Flex>
 
           {/* Ranking */}
           <Text fontSize={"sm"} fontWeight={"500"} color={"gray.400"}>
-            {place.ranking}
+            {place.email}
           </Text>
 
           {/* Open status */}
           <Text fontSize={"sm"} fontWeight={"500"} color={"gray.600"}>
-            {place.is_closed}
+            {place.availability}
           </Text>
 
           {/* dietary_restrictions */}
@@ -97,7 +97,7 @@ const PlaceDetail = ({ place }) => {
           src={
 
             // place.photo? place.photo.images.large.url : "https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg"
-            place.image_url? place.image_url : "https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg"
+            place.profile? place.profile : "https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg"
          
           }
         />
@@ -113,7 +113,7 @@ const PlaceDetail = ({ place }) => {
             color={"gray.700"}
             ml={1}
           >
-            {place.location.display_address}
+            {place.address}
           </Text>
         </Flex>
       )}

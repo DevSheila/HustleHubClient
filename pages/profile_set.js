@@ -2,10 +2,46 @@ import React, { useState, useEffect } from 'react';
 
 
 function setupProfile() {
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [profession, setProfession] = useState('');
+    const [years, setYears] = useState('');
+    const [photo, setPhoto] = useState('');
+    const [submitVisible, setSubmitVisible] = useState(false);
 
+const [image, setImage] = useState('');
   // useEffect(() => {
   let currentTab = 0; // Current tab is set to be the first tab (0)
   showTab(currentTab); // Display the current tab
+
+  async function handleSubmit(e){
+    e.preventDefault();
+    let values={ username, email, profession,years,image }
+
+    console.log("yeyeyy")
+    console.log(values)
+    try{
+        // Send signup request to the API
+        const response = await fetch('/api/artisan/profile', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+        });
+
+        const data = await response.json();
+        console.log("response "+response);
+        console.log("data "+response.data);
+        console.log("message"+response.message);
+    }catch(error){
+    console.log("error"+error);
+
+    }
+
+
+}
+
 
   function showTab(n) {
     if (typeof document !== 'undefined') {
@@ -16,13 +52,17 @@ function setupProfile() {
       x[n].style.display = "block";
       if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
+
       } else {
         document.getElementById("prevBtn").style.display = "inline";
+
       }
       if (n == x.length - 1) {
         document.getElementById("nextBtn").innerHTML = "Submit";
+        setSubmitVisible(true)
       } else {
         document.getElementById("nextBtn").innerHTML = "Next";
+
       }
       // fixStepIndicator(n);
 
@@ -79,8 +119,12 @@ function setupProfile() {
     nextPrev(-1);
 
   }
-  const [image, setImage] = useState('');
+  
 
+  const handleYears=(years)=>{
+    // setYears(years)
+    console.log(years)
+  }
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -136,7 +180,7 @@ function setupProfile() {
     <>
 
       <h1 className="text-lg font-bold text-gray-700 leading-tight text-center mt-12 mb-5">Profile setup Form</h1>
-      <form id="signUpForm" className="p-12 shadow-md rounded-2xl bg-white mx-auto border-solid border-2 border-gray-100 mb-8" action="#!">
+      <form id="signUpForm"  onSubmit={handleSubmit} className="p-12 shadow-md rounded-2xl bg-white mx-auto border-solid border-2 border-gray-100 mb-8" >
         {/* start step indicators */}
         <div className="form-header flex gap-3 mb-4 text-xs text-center">
           <span className="stepIndicator flex-1 pb-8 relative">Your Profile</span>
@@ -181,10 +225,14 @@ function setupProfile() {
 
           <div className="mb-6">
             <input type="Username" placeholder="Username" name="username"
+               value={username}
+               onChange={(e) => setUsername(e.target.value)}
               className="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" oninput="this.className = 'w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200'" />
           </div>
           <div className="mb-6">
             <input type="email" placeholder="email" name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" oninput="this.className = 'w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200'" />
           </div>
 
@@ -195,6 +243,8 @@ function setupProfile() {
           <p className="text-md text-gray-700 leading-tight text-center mt-8 mb-5">Your profession</p>
           <div className="mb-6">
             <input type="text" placeholder="professional" name="profession"
+              value={profession}
+              onChange={(e) => setProfession(e.target.value)}
               className="w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200" oninput="this.className = 'w-full px-4 py-3 rounded-md text-gray-700 font-medium border-solid border-2 border-gray-200'" />
           </div>
 
@@ -205,13 +255,23 @@ function setupProfile() {
         <div className="step">
           <p className="text-md text-gray-700 leading-tight text-center mt-8 mb-5">How many years of experience do you have?</p>
           <div className="inline-centre rounded-md shadow-sm">
-            <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
+            <button type="button"
+            //  onClick={setYears('0-2')}
+             onClick={handleYears('0-2')}
+             className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
               0-2
             </button>
-            <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
+            <button type="button"
+            //  onClick={setYears('2-4')}
+             onClick={handleYears('2-4')}
+
+             className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
               2-4
             </button>
-            <button type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
+            <button 
+            //  onClick={setYears('4-6')}
+            onClick={handleYears('4-6')}
+            type="button" className="py-3 px-4 inline-flex justify-center items-center gap-2 -ml-px first:rounded-l-lg first:ml-0 last:rounded-r-lg border font-medium bg-white text-blue-700 align-middle hover:bg-blue-50 focus:z-10 focus:outline-none focus:ring-2 focus:ring-blue-600 transition-all text-sm dark:bg-blue-800 dark:hover:bg-blue-800 dark:border-blue-700 dark:text-blue-400">
               4-6
             </button>
           </div>
@@ -250,6 +310,28 @@ function setupProfile() {
               Next
             </button>
           </div>
+
+        {submitVisible?(
+           <div className="flex justify-between">
+           <button
+              type="submit"
+              id="nextBtn"
+              className="flex-1 border border-transparent focus:outline-none p-3 rounded-md text-center text-white bg-indigo-600 hover:bg-indigo-700 text-lg"
+              onClick={handleSubmit}
+              // disabled={currentTab === numTabs - 1} // Disable next button on last tab
+            >
+              SUBMIT
+            </button>
+            </div>
+        ):
+         (
+           <div>
+            
+          </div>
+         )
+        
+        }
+         
         </div>
         {/* end previous / next buttons */}
       </form>
