@@ -27,7 +27,8 @@ git clone  https://github.com/DevSheila/HustleHubClient
 2. Install dependencies
 ```npm install```
 
-3.Set your keys on the  next.cofig.js file
+3. Set your keys on the  next.cofig.js file
+
 ```bash
  env: {
   
