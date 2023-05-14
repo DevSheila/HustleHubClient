@@ -25,3 +25,96 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.transition {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+.transition-in {
+  opacity: 1;
+}
+
+.transition-out {
+  opacity: 0;
+  pointer-events: none;
+}
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+#signUpForm {
+  max-width: 500px;
+}
+#signUpForm .form-header .stepIndicator.active {
+  font-weight: 600;
+}
+#signUpForm .form-header .stepIndicator.finish {
+  font-weight: 600;
+  color: #5a67d8;
+}
+#signUpForm .form-header .stepIndicator::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 9;
+  width: 20px;
+  height: 20px;
+  background-color: #c3dafe;
+  border-radius: 50%;
+  border: 3px solid #ebf4ff;
+}
+#signUpForm .form-header .stepIndicator.active::before {
+  background-color: #a3bffa;
+  border: 3px solid #c3dafe;
+}
+#signUpForm .form-header .stepIndicator.finish::before {
+  background-color: #5a67d8;
+  border: 3px solid #c3dafe;
+}
+#signUpForm .form-header .stepIndicator::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 100%;
+  height: 3px;
+  background-color: #f3f3f3;
+}
+#signUpForm .form-header .stepIndicator.active::after {
+  background-color: #a3bffa;
+}
+#signUpForm .form-header .stepIndicator.finish::after {
+  background-color: #5a67d8;
+}
+#signUpForm .form-header .stepIndicator:last-child:after {
+  display: none;
+}
+#signUpForm input.invalid {
+  border: 2px solid #ffaba5;
+}
+#signUpForm .step {
+display: none;
+}
+:root {
+  --main-color: #4a76a8;
+}
+
+.bg-main-color {
+  background-color: var(--main-color);
+}
+
+.text-main-color {
+  color: var(--main-color);
+}
+
+.border-main-color {
+  border-color: var(--main-color);
+}
+.circle-button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  /* Additional styles */
+}

@@ -17,8 +17,8 @@ import Contact from './contact'
   //Navigation
   const navigation = [
     { name: 'Home', href: '#', current: true },
-    { name: 'For clients', href: '/issue_form', current: false },
-    { name: 'For artisans', href: '#', current: false },
+    { name: 'For clients', href: '/BookingMap', current: false },
+    { name: 'For artisans', href: '/profile_set', current: false },
     { name: 'About us', href: '#', current: false },
   ]
   //className
@@ -27,6 +27,12 @@ import Contact from './contact'
   }
   //LandingPage function
 function LandingPage() {
+
+   const { data: session } = useSession()
+
+  function handleSignOut(){
+    signOut()
+  }
     return (
         <>
             <div class="bg-white">
@@ -107,14 +113,52 @@ function LandingPage() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+      {session ? 
+      
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Your Profile
+                            {session.user.name}
+                            {session.user.email}
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/profile"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                           Profile
+                          </a>
+                        )}
+                      </Menu.Item>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="#"
+                            onClick={handleSignOut} 
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                            Sign out
+                          </a>
+                        )}
+                      </Menu.Item>
+                    </Menu.Items>
+      :
+      
+         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href="/login"
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          >
+                           Login
                           </a>
                         )}
                       </Menu.Item>
@@ -128,17 +172,11 @@ function LandingPage() {
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
+                   
                     </Menu.Items>
+      }
+
+                 
                   </Transition>
                 </Menu>
               </div>
@@ -198,6 +236,23 @@ function LandingPage() {
             <Contact />
         </>
     )
+}
+
+export async function getServerSideProps({ req }){
+  const session = await getSession({ req })
+
+  if(!session){
+    return {
+      redirect : {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: { session }
+  }
 }
 
 export default LandingPage
