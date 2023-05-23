@@ -21,11 +21,28 @@ Our project is a blue-collar web app designed to connect skilled handymen with p
 
 ## SETUP
 1. Clone the repo 
-
+```bash
+git clone  https://github.com/DevSheila/HustleHubClient
+```
 2. Install dependencies
 ```npm install```
 
-3. Running on the development server:
+3. Set your keys on the  next.cofig.js file
+
+```bash
+ env: {
+  
+    NEXTAUTH_SECRET: "",
+    MONGO_URL:"",
+    GOOGLE_CLIENT_ID: "",
+    GOOGLE_CLIENT_SECRET: "",
+    GITHUB_ID: "",
+    GITHUB_SECRET: "",
+    GOOGLE_MAPS_API_KEY: "",
+    TRIP_ADVISOR_API_KEY:""
+  }
+```
+3. Run application on development server:
 
 ```bash
 npm run dev
