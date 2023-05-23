@@ -5,6 +5,9 @@ import styles from '../styles/Home.module.css'
 import { useState } from 'react'
 import { getSession, useSession, signOut } from "next-auth/react"
 import LandingPage from './landingPage'
+import HandymanVerification from './HandymanVerification'
+// import HandymanVerification from './handymanVerification'
+
 
 export default function Home() {
 
@@ -21,6 +24,7 @@ export default function Home() {
       </Head>
       <LandingPage/>
       
+      {/* <HandymanVerification/> */}
     </div>
   )
 }

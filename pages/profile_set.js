@@ -290,6 +290,7 @@ const [image, setImage] = useState('');
           </div>
 
           {/* Previous and Next buttons */}
+         
           <div className="flex justify-between">
             <button
               type="button"
@@ -310,6 +311,7 @@ const [image, setImage] = useState('');
               Next
             </button>
           </div>
+          
 
         {submitVisible?(
            <div className="flex justify-between">
@@ -325,8 +327,8 @@ const [image, setImage] = useState('');
             </div>
         ):
          (
-           <div>
-            
+             <div className="flex justify-between">
+    
           </div>
          )
         
