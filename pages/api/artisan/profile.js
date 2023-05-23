@@ -10,29 +10,28 @@ export default async function handler(req, res) {
     // Connect to MongoDB
     const client = await MongoClient.connect(process.env.MONGO_URL);
     const db = client.db();
-   
 
     try {
       // Check if the profile already exists
       const existingUser = await db.collection('artians').findOne({ email });
-    
-
       if (existingUser) {
         res.status(409).json({ message: 'Profile email already exists' });
         return;
       }
-
       // Create a new user
- 
-
       const result = await db.collection('artisans').insertOne(req.body);
       return res.status(201).json({ message: 'Profile created' ,data:result});
+
     } catch (error) {
 
       return res.status(500).json({ message: 'Something went wrong' });
+
     } finally {
+
       client.close();
+      
     }
+
   } else {
     console.log("yeyeyy6")
 
