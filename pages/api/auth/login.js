@@ -11,6 +11,7 @@ export default async function handler(req, res) {
     const client = await MongoClient.connect(process.env.MONGO_URL);
     const db = client.db();
 
+    
     try {
       // Find the user in the database
       const user = await db.collection('users').findOne({ email });

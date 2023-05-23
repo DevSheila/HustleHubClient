@@ -8,16 +8,26 @@ import { useState } from 'react';
 import { useFormik } from 'formik';
 import { registerValidate } from '../lib/validate'
 import { useRouter } from 'next/router';
+import { getSession, useSession, signIn,signOut } from "next-auth/react"
+import Loader from '@/components/Loader';
 
 
-export default function Signup() {
-  
-
+ function Signup() {
     const [show, setShow] = useState({ password: false, cpassword: false })
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [cpassword, setcpassword] = useState('');
+
+    const [message, setMessage] = useState('');
+    const [msgColor, setMsgColor] = useState('');
+    const [showMessage, setShowMessage] = useState(true);
+    const { data: session } = useSession()
+    const [isLoading, setIsLoading] = useState(false);
+
+    function handleSignOut(){
+      signOut()
+    }
 
     const router = useRouter()
     const formik = useFormik({
@@ -31,11 +41,63 @@ export default function Signup() {
         // handleSubmit
     })
 
-
     async function handleSubmit(e){
-        e.preventDefault();
-        let values={ username, email,cpassword, password }
- 
+          setIsLoading(true);
+
+      try{
+          e.preventDefault();
+          let values={ username, email,cpassword, password }
+  
+          // Send signup request to the API
+          const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, email, password }),
+          });
+
+          const data = await response.json();
+          console.log(data);
+
+          setMessage(data.message)
+          setMsgColor(data.msgColor)
+          
+          const timer = setTimeout(() => {
+          setIsLoading(false);
+          setShowMessage(false)
+                router.push("http://localhost:3000");
+
+          }, 2000);
+           return () => clearTimeout(timer);
+
+      }catch(error){
+
+          setMessage(error.message)
+          setMsgColor(error.msgColor)
+
+          const timer = setTimeout(() => {
+                setIsLoading(false);
+                setShowMessage(false);
+          }, 2000);
+           return () => clearTimeout(timer);
+
+
+      }
+
+        }
+
+        // Google Handler function
+    async function handleGoogleSignin(){
+        signIn('google')
+    
+        let username = session.user.name
+        let email =session.user.email
+        let password="123456"
+        // Send signup request to the API
+          let values={ username, email,cpassword, password }
+  
+        try{
         // Send signup request to the API
         const response = await fetch('/api/auth/signup', {
         method: 'POST',
@@ -47,8 +109,36 @@ export default function Signup() {
 
         const data = await response.json();
         console.log(data);
+
+        setMessage(data.message)
+        setMsgColor(data.msgColor)
+        
+        const timer = setTimeout(() => {
+        setIsLoading(false);
+        setShowMessage(false)
+              router.push("http://localhost:3000");
+
+        }, 2000);
+          return () => clearTimeout(timer);
+
+        }catch(error){
+
+            setMessage(error.message)
+            setMsgColor(error.msgColor)
+
+            const timer = setTimeout(() => {
+                  setIsLoading(false);
+                  setShowMessage(false);
+            }, 2000);
+            return () => clearTimeout(timer);
+          }
+        
     }
 
+    // Github Login 
+    async function handleGithubSignin(){
+        signIn('github', { callbackUrl : "http://localhost:3000"})
+    }
 
 
     return (
@@ -85,7 +175,7 @@ export default function Signup() {
               </h2>
 
               <p className="mt-4 leading-relaxed text-white/90">
-                We bring skilled artisans to your doorstep
+                 Bringing skilled artisans to your doorstep
               </p>
             </div>
           </section>
@@ -121,17 +211,58 @@ export default function Signup() {
                 </h1>
 
                 <p className="mt-4 leading-relaxed text-gray-500">
-                  We bring services to your doorstep
+                  Bringing skilled artisans to your doorstep
                 </p>
               </div>
+              <div>
+                  <h3 class="font-heading text-4xl text-gray-900 font-semibold mb-4">Sign Up</h3>
+                  <p class="text-lg text-gray-500 mb-10">Greetings ! We kindly request you to enter your details.</p>
+                  <div class="flex flex-wrap mb-6 items-center -mx-2">
+                    <div class="w-full md:w-1/2 px-2 mb-3 md:mb-0">
+                      <a onClick={handleGoogleSignin} class="inline-flex w-full py-3 px-4 items-center justify-center rounded-full border border-gray-200 hover:border-gray-400 transition duration-100" href="#">
+                        <img src="saturn-assets/images/sign-up/icon-facebook.svg" alt=""/>
+                        <span class="ml-4 text-sm font-semibold text-gray-500">Login with Google</span>
+                      </a>
+                    </div>
+                    <div class="w-full md:w-1/2 px-2">
+                      <a onClick={handleGithubSignin} class="inline-flex w-full py-3 px-4 items-center justify-center rounded-full border border-gray-200 hover:border-gray-400 transition duration-100" href="#">
+                        <img src="saturn-assets/images/sign-up/icon-apple.svg" alt=""/>
+                        <span class="ml-4 text-sm font-semibold text-gray-500">Login with Github</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="flex mb-6 items-center">
+                    <div class="w-full h-px bg-gray-300"></div>
+                    <span class="mx-4 text-sm font-semibold text-gray-500">Or</span>
+                    <div class="w-full h-px bg-gray-300"></div>
+                  </div>
+              </div>
 
+                  {showMessage? (
+                    <div class="w-full md:w-1/2 px-2">
+                        {/* <p class={`ml-4 text-sm font-semibold bg-green text-gray-500`}>{message}</p> */}
+                   
+                    <div class={`relative group block w-full mb-6 py-3 px-5 text-center text-sm font-semibold ${msgColor} text-orange-50 rounded-full overflow-hidden`}>
+                      
+                      <div class={`absolute top-0 right-full w-full h-full bg-gray-900 ${msgColor} transform group-hover:translate-x-full group-hover:scale-102 transition duration-500`}></div>
+                      <span class="relative">{message}</span>
+                       <Loader isLoading={isLoading} />
+                    </div>
+
+                     </div>
+
+                    )
+
+                  : <div>
+                    
+                    </div>}
               <form  className="mt-8 grid grid-cols-6 gap-6" onSubmit={handleSubmit}>
-                <div className={`col-span-6 sm:col-span-3 ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
+                <div className={`col-span-6  ${formik.errors.username && formik.touched.username ? 'border-rose-600' : ''}`}>
                   <label
-                    htmlFor="FirstName"
+                    htmlFor="Username"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    First Name
+                    Username
                   </label>
 
                   <input
@@ -144,7 +275,7 @@ export default function Signup() {
                   />
                 </div>
 
-                <div className="col-span-6 sm:col-span-3" >
+                {/* <div className="col-span-6 sm:col-span-3" >
                   <label
                     htmlFor="LastName"
                     className="block text-sm font-medium text-gray-700"
@@ -172,7 +303,7 @@ export default function Signup() {
                     name="Phone_number"
                     className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   />
-                </div>
+                </div> */}
                 <div className={`col-span-6 ${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
 
                   <label htmlFor="Email" className="block text-sm font-medium text-gray-700">
@@ -253,13 +384,13 @@ export default function Signup() {
                 </div>
 
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
-                  <button
-                    type='submit'
-                    className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+          
+                   <button 
                     onClick={handleSubmit}
-                  >
-                    Create an account
-                  </button>
+                    class="relative group block w-full mb-6 py-3 px-5 text-center text-sm font-semibold text-orange-50 bg-orange-900 rounded-full overflow-hidden" type="submit">
+                      <div class="absolute top-0 right-full w-full h-full bg-gray-900 transform group-hover:translate-x-full group-hover:scale-102 transition duration-500"></div>
+                      <span class="relative">SignUp</span>
+                    </button>
 
                   <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                     Already have an account?
@@ -275,3 +406,21 @@ export default function Signup() {
 
     )
 }
+// export async function getServerSideProps({ req }){
+//   const session = await getSession({ req })
+
+//   if(!session){
+//     return {
+//       redirect : {
+//         destination: '/login',
+//         permanent: false
+//       }
+//     }
+//   }
+
+//   return {
+//     props: { session }
+//   }
+// }
+export default Signup
+

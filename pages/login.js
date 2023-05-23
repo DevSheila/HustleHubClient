@@ -95,11 +95,15 @@ export default function Login() {
                       </a>
                     </div>
                   </div>
+
                   <div class="flex mb-6 items-center">
                     <div class="w-full h-px bg-gray-300"></div>
                     <span class="mx-4 text-sm font-semibold text-gray-500">Or</span>
                     <div class="w-full h-px bg-gray-300"></div>
                   </div>
+
+        
+              
                   <form onSubmit={handleSubmit} >
                     <div class="mb-6" className={`${formik.errors.email && formik.touched.email ? 'border-rose-600' : ''}`}>
                       <label class="block mb-1.5 text-sm text-gray-900 font-semibold" for="" >Email</label>
@@ -144,7 +148,7 @@ export default function Login() {
                     </button>
                     <span class="text-xs font-semibold text-gray-900">
                       <span>Don&rsquo;t have an account?</span>
-                      <a class="ml-1 inline-block text-orange-900 hover:text-orange-700" href="signup">Sign up</a>
+                      <a class="ml-1 inline-block text-orange-900 hover:text-orange-700" href="/signup">Sign up</a>
                     </span>
                   </form>
                 </div>

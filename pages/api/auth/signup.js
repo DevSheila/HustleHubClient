@@ -12,19 +12,21 @@ export default async function handler(req, res) {
     const client = await MongoClient.connect(process.env.MONGO_URL);
     const db = client.db();
 
+
     try {
       // Check if the user already exists
       const existingUser = await db.collection('users').findOne({ email });
       if (existingUser) {
-        res.status(409).json({ message: 'User already exists' });
+        res.status(409).json({ message: 'Account already exists',msgColor:"bg-red-500" });
         return;
       }
 
       // Create a new user
       const result = await db.collection('users').insertOne({ username, email,  password : await hash(password, 12) });
-      res.status(201).json({ message: 'User created' });
+      res.status(201).json({ message: 'Account created successfully',msgColor:"bg-green-500" ,result:result });
     } catch (error) {
-      res.status(500).json({ message: 'Something went wrong' });
+
+      res.status(500).json({ message: 'Something went wrong',msgColor:"bg-red-500" ,error:error });
     } finally {
       client.close();
     }
